@@ -6,13 +6,17 @@ from constants import (
         GAME_HEIGHT,
         GAME_TITLE,
         )
-
+from entities import Party, Character
 
 class Game:
     def __init__(self):
         pyxel.init(GAME_WIDTH, GAME_HEIGHT, title=GAME_TITLE)
 
         self.player = None
+
+        self.party = Party()
+        self.create_party()
+
         self.hud = None
         self.dungeon = None
         self.scene_name = None
@@ -27,6 +31,12 @@ class Game:
         self.change_scene("title")
 
         pyxel.run(self.update, self.draw)
+
+    def create_party(self):
+        self.party.add(Character("Mars", 100, 30, 20, 10, "player.png"))
+        self.party.add(Character("Maria", 80, 40, 15, 12, "heroine.png"))
+        self.party.add(Character("Bibi", 120, 20, 25, 8, "blackmaze.png"))
+        self.party.add(Character("Moguri", 90, 50, 18, 15, "wildhero.png"))
 
     def change_scene(self, scene_name):
         self.scene_name = scene_name
@@ -61,4 +71,5 @@ class Game:
         self.scenes[self.scene_name].update()
 
     def draw(self):
+        print(self.scene_name)
         self.scenes[self.scene_name].draw()

@@ -1,6 +1,7 @@
 import pyxel
 
 from sound import BattleBGM
+from battle_system import BattleSystem
 
 class BattleScene:
     def __init__(self, game):
@@ -8,6 +9,7 @@ class BattleScene:
         self.battle_bgm = BattleBGM()
     def start(self):
         game = self.game
+        game.battle = BattleSystem(game)
         self.battle_bgm.play()
 
     def update(self):
@@ -15,6 +17,4 @@ class BattleScene:
             self.game.change_scene("play")
 
     def draw(self):
-        pyxel.cls(0)
-        pyxel.text(10,10,self.__class__.__name__,1)
         self.game.draw_battle()

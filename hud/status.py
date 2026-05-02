@@ -6,23 +6,25 @@ class ViewStatus:
     def __init__(self, game):
         self.game = game
 
-        self.hero_img = pyxel.Image(16, 16)
-        self.hero_img.load(0, 0, "assets/player.png")
-
-        self.heroine_img = pyxel.Image(16, 16)
-        self.heroine_img.load(0, 0, "assets/heroine.png")
-
-        self.blackmaze_img = pyxel.Image(16, 16)
-        self.blackmaze_img.load(0, 0, "assets/blackmaze.png")
-
-        self.wildhero_img = pyxel.Image(16, 16)
-        self.wildhero_img.load(0, 0, "assets/wildhero.png")
-
     def draw_floor(self):
         pyxel.text(TILE_SIZE*(VIEW_WIDTH+1), 5, f"Floor: {self.game.dungeon.current_floor}", pyxel.COLOR_WHITE)
 
+    def show_status(self, x, y, member):
+        pyxel.blt(x, y, member.img, 0, 0, TILE_SIZE, TILE_SIZE, pyxel.COLOR_PURPLE)
+        pyxel.text(x+20, y, f":{member.name}", self.decide_color(member))
+        pyxel.text(x, y+20, f"HP:{member.hp}/{member.max_hp} MP:{member.mp}/{member.max_mp}", self.decide_color(member))
+        pyxel.rectb(x-3, y-3, 85, 30, self.decide_color(member))
+
     def draw_allys(self):
-        pyxel.blt(TILE_SIZE*(VIEW_WIDTH+2), 100, self.hero_img, 0, 0, self.hero_img.width, self.hero_img.height, pyxel.COLOR_PURPLE)
-        pyxel.blt(TILE_SIZE*(VIEW_WIDTH+2), 120, self.heroine_img, 0, 0, self.hero_img.width, self.hero_img.height, pyxel.COLOR_PURPLE)
-        pyxel.blt(TILE_SIZE*(VIEW_WIDTH+2), 140, self.blackmaze_img, 0, 0, self.hero_img.width, self.hero_img.height, pyxel.COLOR_PURPLE)
-        pyxel.blt(TILE_SIZE*(VIEW_WIDTH+2), 160, self.wildhero_img, 0, 0, self.hero_img.width, self.hero_img.height, pyxel.COLOR_PURPLE)
+        for i, member in enumerate(self.game.party.members):
+            x = TILE_SIZE*(VIEW_WIDTH+2.1)
+            y = 90 + i * 35
+            self.show_status(x, y, member)
+
+    def decide_color(self, member):
+        if member.hp <= 0:
+            return pyxel.COLOR_RED
+        elif member.hp <= member.max_hp * 0.3:
+            return pyxel.COLOR_YELLOW
+        else:
+            return pyxel.COLOR_WHITE

@@ -18,7 +18,7 @@ class Player:
         self.speed = 4
 
         self.player_img = pyxel.Image(16, 16)
-        self.player_img.load(0, 0, "assets/player.png")
+        #self.player_img.load(0, 0, "assets/player.png")
 
     def try_move(self, dx, dy):
         if self.moving:
@@ -59,4 +59,8 @@ class Player:
     def draw(self):
         sx = int(self.game.player.px - self.game.dungeon.cam_px)
         sy = int(self.game.player.py - self.game.dungeon.cam_py)
+        for member in self.game.party.members:
+            if member.is_alive():
+                self.player_img.load(0, 0, f"assets/{member.file_path}")
+                break
         pyxel.blt(sx, sy, self.player_img, 0, 0, self.player_img.width, self.player_img.height, pyxel.COLOR_PURPLE)
