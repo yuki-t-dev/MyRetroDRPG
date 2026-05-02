@@ -43,6 +43,7 @@ class TitleBGM:
         pyxel.play(0, self.melody, loop=True)
         pyxel.play(1, self.harmony, loop=True)
         pyxel.play(2, self.base, loop=True)
+        pyxel.stop(3)
 
 class PlayBGM:
     MELODY = ("t90 l8 o4 v7"
@@ -88,6 +89,7 @@ class PlayBGM:
         pyxel.play(0, self.melody, loop=True)
         pyxel.play(1, self.harmony, loop=True)
         pyxel.play(2, self.base, loop=True)
+        pyxel.stop(3)
 
 class BattleBGM:
     MELODY = ("t180 l8 o4 v12"
