@@ -184,6 +184,7 @@ class Dungeon:
             self.currnet_floor += 1
             self.generate()
             self.spawn_goal()
+            self.game.scenes["play"].initialized = False
 
     def draw(self):
         pyxel.cls(0)

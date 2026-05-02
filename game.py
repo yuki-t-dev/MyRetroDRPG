@@ -1,6 +1,6 @@
 import pyxel
 
-from scenes import TitleScene, PlayScene
+from scenes import TitleScene, PlayScene, BattleScene
 from constants import (
         GAME_WIDTH,
         GAME_HEIGHT,
@@ -16,10 +16,12 @@ class Game:
         self.hud = None
         self.dungeon = None
         self.scene_name = None
+        self.battle = None
 
         self.scenes = {
             "title": TitleScene(self),
             "play": PlayScene(self),
+            "battle": BattleScene(self),
         }
         self.change_scene("title")
 
@@ -41,6 +43,10 @@ class Game:
         if self.hud is not None:
             self.hud.draw_floor()
             self.hud.draw_allys()
+
+    def draw_battle(self):
+        if self.battle is not None:
+            self.battle.draw_battle()
 
     def update_dungeon(self):
         if self.dungeon is not None:
