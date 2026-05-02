@@ -1,9 +1,11 @@
 import pyxel
 
+from sound import TitleBGM
 
 class TitleScene:
     def __init__(self, game):
         self.game = game
+        self.title_bgm = TitleBGM()
         self.opening_img = pyxel.Image(324, 240)
         self.opening_img.load(0, 0, "assets/opening.png")
 
@@ -11,7 +13,7 @@ class TitleScene:
         self.se_pressed.mml("t120 o5 v10 l16 g >C")
 
     def start(self):
-        pass
+        self.title_bgm.play()
 
     def update(self):
         if  pyxel.btnp(pyxel.KEY_RETURN) or\
