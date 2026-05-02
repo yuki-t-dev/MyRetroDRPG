@@ -58,6 +58,7 @@ class Game:
     def draw_battle(self):
         if self.battle is not None:
             self.battle.draw_battle()
+            self.battle.draw_allys()
 
     def update_dungeon(self):
         if self.dungeon is not None:

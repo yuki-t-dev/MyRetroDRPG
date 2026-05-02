@@ -31,7 +31,7 @@ class PlayScene:
     def update(self):
         self.game.update_dungeon()
         self.game.update_player()
-        if pyxel.frame_count % 70 == 0:
+        if pyxel.frame_count % 400 == 0:
             self.game.change_scene("battle")
 
     def draw(self):

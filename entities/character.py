@@ -20,9 +20,3 @@ class Character:
     def take_damage(self, dmg):
         print(self.hp, dmg)
         self.hp = max(0, self.hp - dmg)
-
-#    def is_dead(self):
-#        if self.hp <= 0:
-#            self.hp = 0
-#            return True
-#        return False
