@@ -7,15 +7,15 @@ class Dungeon:
     TILE_WALL = 0
     TILE_FLOOR = 1
 
-    def __init__(self, game, w, h):
+    def __init__(self, game, w, h, floor):
         self.game = game
         self.w = w
         self.h = h
+        self.current_floor = floor
+
         self.radius = 6
         self.view_w = self.radius * 2 + 1
         self.view_h = self.radius * 2 + 1
-
-        self.currnet_floor = 1
 
         self.cam_x = 0
         self.cam_y = 0
@@ -158,8 +158,6 @@ class Dungeon:
                     return x, y
 
     def spawn_goal(self):
-        if not self.currnet_floor == 1:
-            self.game.player.grid_x, self.game.player.grid_y = self.get_random_floor()
         while True:
             self.goal_x, self.goal_y = self.get_random_floor()
             if (self.goal_x, self.goal_y) != (self.game.player.grid_x, self.game.player.grid_y):
@@ -181,10 +179,12 @@ class Dungeon:
     def update(self):
         self.update_fov(self.game.player.grid_x, self.game.player.grid_y, radius=self.radius)
         if (self.game.player.grid_x, self.game.player.grid_y) == (self.goal_x, self.goal_y):
-            self.currnet_floor += 1
+            self.game.current_floor += 1
             self.generate()
             self.spawn_goal()
             self.game.scenes["play"].initialized = False
+            self.update_fov(self.game.player.grid_x, self.game.player.grid_y, radius=self.radius)
+            self.game.change_scene("play")
 
     def draw(self):
         pyxel.cls(0)

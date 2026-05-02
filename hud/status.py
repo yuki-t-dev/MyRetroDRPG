@@ -19,7 +19,7 @@ class ViewStatus:
         self.wildhero_img.load(0, 0, "assets/wildhero.png")
 
     def draw_floor(self):
-        pyxel.text(TILE_SIZE*(VIEW_WIDTH+1), 5, f"Floor: {self.game.dungeon.currnet_floor}", pyxel.COLOR_WHITE)
+        pyxel.text(TILE_SIZE*(VIEW_WIDTH+1), 5, f"Floor: {self.game.dungeon.current_floor}", pyxel.COLOR_WHITE)
 
     def draw_allys(self):
         pyxel.blt(TILE_SIZE*(VIEW_WIDTH+2), 100, self.hero_img, 0, 0, self.hero_img.width, self.hero_img.height, pyxel.COLOR_PURPLE)

@@ -19,12 +19,11 @@ class PlayScene:
             return
 
         game = self.game
-        game.dungeon = Dungeon(game, 64, 64)
+        game.dungeon = Dungeon(game, 64, 64, game.current_floor)
         player_x, player_y = game.dungeon.get_random_floor()
         game.player = Player(game, player_x, player_y)
         game.hud = ViewStatus(game)
         game.dungeon.spawn_goal()
-        game.dungeon.update_fov(player_x, player_y)
         self.play_bgm.play()
 
         self.initialized = True
@@ -40,4 +39,3 @@ class PlayScene:
         self.game.draw_dungeon()
         self.game.draw_player()
         self.game.draw_hud()
-        print(pyxel.frame_count)

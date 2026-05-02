@@ -17,6 +17,7 @@ class Game:
         self.dungeon = None
         self.scene_name = None
         self.battle = None
+        self.current_floor = 1
 
         self.scenes = {
             "title": TitleScene(self),
