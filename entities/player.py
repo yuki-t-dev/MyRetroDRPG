@@ -50,8 +50,8 @@ class Player:
                 self.try_move(0, 1)
 
         if self.moving:
-            self.px += (self.target_x - self.px) * 0.4
-            self.py += (self.target_y - self.py) * 0.4
+            self.px += (self.target_x - self.px) * 0.2
+            self.py += (self.target_y - self.py) * 0.2
 
             if abs(self.px - self.target_x) < 0.5 and abs(self.py - self.target_y) < 0.5:
                 self.px = self.target_x

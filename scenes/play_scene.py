@@ -14,7 +14,7 @@ class PlayScene:
         self.play_bgm = PlayBGM()
         self.initialized = False
         self.steps = 0
-        self.next_encounter = random.randint(5, 12)
+        self.next_encounter = random.randint(5, 15)
 
     def start(self):
         if self.initialized:
@@ -43,11 +43,12 @@ class PlayScene:
         self.game.draw_dungeon()
         self.game.draw_player()
         self.game.draw_hud()
+        print(self.steps)
 
     def check_encounter(self):
         self.steps += 1
 
         if self.steps >= self.next_encounter:
             self.steps = 0
-            self.next_encounter = random.randint(5, 12)
+            self.next_encounter = random.randint(5, 15)
             self.game.change_scene("battle")
