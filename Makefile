@@ -18,5 +18,10 @@ html: build
 	$(PYTHON) -m pyxel app2html $(PYXAPP)
 	mv $(HTML) $(OUTPUT)
 
+deploy: html
+	git add $(OUTPUT)
+	git commit -m "deploy: update html" || true
+	git push
+
 clean:
 	rm -f *.pyxapp *.html
