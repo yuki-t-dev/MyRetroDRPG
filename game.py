@@ -28,6 +28,7 @@ class Game:
             "play": PlayScene(self),
             "battle": BattleScene(self),
         }
+        #self.change_scene("battle")
         self.change_scene("title")
 
         pyxel.run(self.update, self.draw)
@@ -58,7 +59,6 @@ class Game:
     def draw_battle(self):
         if self.battle is not None:
             self.battle.draw_battle()
-            self.battle.draw_allys()
 
     def update_dungeon(self):
         if self.dungeon is not None:
@@ -72,5 +72,4 @@ class Game:
         self.scenes[self.scene_name].update()
 
     def draw(self):
-        print(self.scene_name)
         self.scenes[self.scene_name].draw()

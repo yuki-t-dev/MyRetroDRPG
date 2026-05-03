@@ -37,6 +37,8 @@ class Player:
             self.moving = True
 
     def update(self):
+        moved = False
+
         if not self.moving:
             if pyxel.btn(pyxel.KEY_LEFT) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_LEFT):
                 self.try_move(-1, 0)
@@ -55,6 +57,9 @@ class Player:
                 self.px = self.target_x
                 self.py = self.target_y
                 self.moving = False
+                moved = True
+        
+        return moved
 
     def draw(self):
         sx = int(self.game.player.px - self.game.dungeon.cam_px)

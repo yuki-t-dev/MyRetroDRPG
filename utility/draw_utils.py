@@ -1,12 +1,19 @@
 import pyxel
 
 
-FONTS = {
-    "normal": pyxel.Font("assets/umplus_j10r.bdf"),
-}
+#FONTS = {
+#    "normal": pyxel.Font("./assets/umplus_j10r.bdf"),
+#}
+
+_fonts = {}
+
+def get_font(name="normal"):
+    if name not in _fonts:
+        _fonts[name] = pyxel.Font("./assets/umplus_j10r.bdf")
+    return _fonts[name]
 
 def draw_text(x, y, text, col=7, style="normal", font="normal", **kwargs):
-    f = FONTS[font]
+    f = get_font()
 
     if style == "shadow":
         pyxel.text(x+1, y, text, kwargs.get("shadow_col", pyxel.COLOR_DARK_BLUE), f)

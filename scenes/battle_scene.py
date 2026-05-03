@@ -13,8 +13,9 @@ class BattleScene:
         self.battle_bgm.play()
 
     def update(self):
-        if pyxel.btn(pyxel.KEY_A) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_A):
-            self.game.change_scene("play")
+        self.game.battle.update_battle()
+        #if pyxel.btn(pyxel.KEY_A) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_A):
+        #    self.game.change_scene("play")
 
     def draw(self):
         self.game.draw_battle()

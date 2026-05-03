@@ -1,4 +1,5 @@
 import pyxel
+import random
 
 from entities import Player
 from dungeon import Dungeon
@@ -12,6 +13,8 @@ class PlayScene:
         self.game = game
         self.play_bgm = PlayBGM()
         self.initialized = False
+        self.steps = 0
+        self.next_encounter = random.randint(5, 12)
 
     def start(self):
         if self.initialized:
@@ -31,11 +34,20 @@ class PlayScene:
     def update(self):
         self.game.update_dungeon()
         self.game.update_player()
-        if pyxel.frame_count % 400 == 0:
-            self.game.change_scene("battle")
+        moved = self.game.player.update()
+        if moved:
+            self.check_encounter()
 
     def draw(self):
         pyxel.cls(0)
         self.game.draw_dungeon()
         self.game.draw_player()
         self.game.draw_hud()
+
+    def check_encounter(self):
+        self.steps += 1
+
+        if self.steps >= self.next_encounter:
+            self.steps = 0
+            self.next_encounter = random.randint(5, 12)
+            self.game.change_scene("battle")
