@@ -24,7 +24,7 @@ class BattleSystem:
             Enemy("ゴブリン", 20, "goburin_tachie.png"),
         ]
 
-        self.message = "！闘開始始！"
+        self.message = "！戦闘開始！"
 
     def draw_battle(self):
         pyxel.cls(0)

@@ -43,7 +43,6 @@ class PlayScene:
         self.game.draw_dungeon()
         self.game.draw_player()
         self.game.draw_hud()
-        print(self.steps)
 
     def check_encounter(self):
         self.steps += 1
