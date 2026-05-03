@@ -228,10 +228,9 @@ class Dungeon:
         if self.visible[self.goal_y][self.goal_x] and self.explored[self.goal_y][self.goal_x]:
             gx = int(self.goal_x * TILE_SIZE - self.cam_px)
             gy = int(self.goal_y * TILE_SIZE - self.cam_py)
-            #pyxel.rect(gx, gy, TILE_SIZE, TILE_SIZE, 11)
             pyxel.blt(gx, gy, self.stairs_img, 0, 0, self.stairs_img.width, self.stairs_img.height, pyxel.COLOR_PURPLE)
 
-        offset_x = (self.view_w + 2) * TILE_SIZE
+        offset_x = (self.view_w + 1.9) * TILE_SIZE
         offset_y = TILE_SIZE
 
         pyxel.rectb(offset_x-1, offset_y-1, self.w * MINIMAP_TILE_SIZE + 2, self.h * MINIMAP_TILE_SIZE + 2, 7)
@@ -248,8 +247,8 @@ class Dungeon:
         cam_px = offset_x + self.cam_x * MINIMAP_TILE_SIZE
         cam_py = offset_y + self.cam_y * MINIMAP_TILE_SIZE
 
-        cam_w = self.view_w * MINIMAP_TILE_SIZE
-        cam_h = self.view_h * MINIMAP_TILE_SIZE
+        cam_w = (self.view_w+2) * MINIMAP_TILE_SIZE
+        cam_h = (self.view_h+2) * MINIMAP_TILE_SIZE
 
         pyxel.rectb(cam_px, cam_py, cam_w, cam_h, 8)
 

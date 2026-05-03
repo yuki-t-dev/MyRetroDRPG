@@ -33,10 +33,10 @@ class Game:
         pyxel.run(self.update, self.draw)
 
     def create_party(self):
-        self.party.add(Character("Mars", 100, 30, 20, 10, "player.png"))
-        self.party.add(Character("Maria", 80, 40, 15, 12, "heroine.png"))
-        self.party.add(Character("Bibi", 120, 20, 25, 8, "blackmaze.png"))
-        self.party.add(Character("Moguri", 90, 50, 18, 15, "wildhero.png"))
+        self.party.add(Character("マルス", 100, 30, 20, 10, "player.png"))
+        self.party.add(Character("マリア", 80, 40, 15, 12, "heroine.png"))
+        self.party.add(Character("ビビ", 120, 20, 25, 8, "blackmaze.png"))
+        self.party.add(Character("モーグリ", 90, 50, 18, 15, "wildhero.png"))
 
     def change_scene(self, scene_name):
         self.scene_name = scene_name
