@@ -5,6 +5,7 @@ from constants import TILE_SIZE
 from utility import draw_text, decide_color_from_hp
 
 from entities import Enemy
+from entities import Skill
 
 class BattleSystem:
     def __init__(self, game):
@@ -13,7 +14,9 @@ class BattleSystem:
         self.selected_actor = 0
         self.command_idx = 0
 
-        self.commands = ["たたかう", "まほう", "アイテム", "にげる"]
+        self.skill0 = Skill("魔法",power=20, skill_type="magical")
+
+        self.commands = ["たたかう", self.skill0.name, "アイテム", "にげる"]
         self.selected_commands = [None] * len(self.game.party.members)
 
         self.flash_timer = 0
@@ -21,8 +24,8 @@ class BattleSystem:
 
         if self.game.current_floor < self.game.boss_floor:
             self.enemies = [
-                Enemy("スライム", 10, "slime_tachie.png"),
-                Enemy("ゴブリン", 10, "goburin_tachie.png"),
+                Enemy("スライム", 10, 0, "slime_tachie.png"),
+                Enemy("ゴブリン", 10, 0, "goburin_tachie.png"),
             ]
         else:
             self.enemies = [
@@ -180,8 +183,12 @@ class BattleSystem:
                 if target_idx is None:
                     return
                 target = self.enemies[target_idx]
-                damage = random.randint(5, 10)
-                target.take_damage(damage)
+                results = actor.attack(target)
+
+                if results["result"] == "miss":
+                    self.message = f"ミス！"
+                else:
+                    damage = results["damage"]
                 se0 = pyxel.Sound()
                 se0.mml("T200 O4 L16 V15 E G >C <B A G")
                 pyxel.play(3, se0)
@@ -191,10 +198,10 @@ class BattleSystem:
 
                 self.message = f"{actor.name}の攻撃！\n{target.name}に{damage}のダメージ！"
             elif cmd == 1:
-                damage = random.randint(10, 20)
-                actor.mp -= 5
+                #actor.mp -= 5
                 target = random.choice(self.enemies)
-                target.take_damage(damage)
+                results = actor.attack(target, self.skill0)
+                damage = results["damage"]
                 se0 = pyxel.Sound()
                 se0.mml("T120 O4 L8 V15 C E G >C <G E C")
                 pyxel.play(3, se0)
