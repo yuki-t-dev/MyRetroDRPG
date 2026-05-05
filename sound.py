@@ -45,6 +45,53 @@ class TitleBGM:
         pyxel.play(2, self.base, loop=True)
         pyxel.stop(3)
 
+class OpeningBGM:
+    MELODY = ("t120 o4 l8 v7"
+        "e d c d  e g a g"
+        "e d c d  g2"
+        "a g e d  c d e g"
+        "a2 r2"
+        "e d c d  e g a g"
+        "b a g e  d2"
+        "c d e g  a g e d"
+        "c4 r4"
+    )
+    HARMONY = ("t120 o3 l8 v6"
+        "c2 g2"
+        "a2 e2"
+        "f2 c2"
+        "g2 r2"
+        "c2 g2"
+        "a2 e2"
+        "f2 g2"
+        "c4 r4"
+    )
+    BASE = ("t120 o2 l4 v7"
+        "c r g r"
+        "a r e r"
+        "f r c r"
+        "g r r2"
+        "c r g r"
+        "a r e r"
+        "f r g r"
+        "c2 r2"
+    )
+    def __init__(self):
+        self.melody = pyxel.Sound()
+        self.melody.mml(self.MELODY)
+
+        self.harmony = pyxel.Sound()
+        self.harmony.mml(self.HARMONY)
+
+        self.base = pyxel.Sound()
+        self.base.mml(self.BASE)
+
+    def play(self):
+        pyxel.play(0, self.melody, loop=True)
+        pyxel.play(1, self.harmony, loop=True)
+        pyxel.play(2, self.base, loop=True)
+        pyxel.stop(3)
+
 class PlayBGM:
     MELODY = ("t90 l8 o4 v7"
             "a g# a e d c# d e"

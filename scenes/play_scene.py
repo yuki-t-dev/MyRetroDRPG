@@ -14,7 +14,7 @@ class PlayScene:
         self.play_bgm = PlayBGM()
         self.initialized = False
         self.steps = 0
-        self.next_encounter = random.randint(5, 15)
+        self.next_encounter = random.randint(10, 20)
 
     def start(self):
         if self.initialized:
@@ -32,6 +32,8 @@ class PlayScene:
         self.initialized = True
 
     def update(self):
+        if self.game.current_floor == 2:
+            self.game.change_scene("battle")
         self.game.update_dungeon()
         self.game.update_player()
         moved = self.game.player.update()
@@ -49,5 +51,5 @@ class PlayScene:
 
         if self.steps >= self.next_encounter:
             self.steps = 0
-            self.next_encounter = random.randint(5, 15)
+            self.next_encounter = random.randint(10, 20)
             self.game.change_scene("battle")

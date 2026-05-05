@@ -19,10 +19,15 @@ class BattleSystem:
         self.flash_timer = 0
         self.flash_color = pyxel.COLOR_WHITE
 
-        self.enemies = [
-            Enemy("スライム", 10, "slime_tachie.png"),
-            Enemy("ゴブリン", 20, "goburin_tachie.png"),
-        ]
+        if self.game.current_floor < self.game.boss_floor:
+            self.enemies = [
+                Enemy("スライム", 10, "slime_tachie.png"),
+                Enemy("ゴブリン", 10, "goburin_tachie.png"),
+            ]
+        else:
+            self.enemies = [
+                Enemy("ドラゴン", 50, "dragon_tachie.png")
+            ]
 
         self.message = "！戦闘開始！"
 
@@ -145,7 +150,10 @@ class BattleSystem:
 
             if self.state == "select_target" and i == self.target_idx:
                 pyxel.rectb(x-5, y-5, 100, 20, pyxel.COLOR_YELLOW)
-                pyxel.blt(250,170,enemy.img,0,0,enemy.img.width,enemy.img.height,pyxel.COLOR_GREEN)
+                if self.game.current_floor < self.game.boss_floor:
+                    pyxel.blt(250,170,enemy.img,0,0,enemy.img.width,enemy.img.height,pyxel.COLOR_GREEN)
+                else:
+                    pyxel.blt(220,145,enemy.img,0,0,enemy.img.width,enemy.img.height,pyxel.COLOR_GREEN)
 
     def update_action(self):
         if pyxel.btnp(pyxel.KEY_A) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A):
@@ -283,4 +291,7 @@ class BattleSystem:
 
     def update_win(self):
         if pyxel.btnp(pyxel.KEY_A) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A):
-            self.game.change_scene("play")
+            if self.game.current_floor < self.game.boss_floor:
+                self.game.change_scene("play")
+            else:
+                self.game.change_scene("title")

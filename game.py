@@ -1,6 +1,6 @@
 import pyxel
 
-from scenes import TitleScene, PlayScene, BattleScene
+from scenes import TitleScene, PlayScene, BattleScene, OpeningRollScene
 from constants import (
         GAME_WIDTH,
         GAME_HEIGHT,
@@ -22,9 +22,11 @@ class Game:
         self.scene_name = None
         self.battle = None
         self.current_floor = 1
+        self.boss_floor = 3
 
         self.scenes = {
             "title": TitleScene(self),
+            "opening": OpeningRollScene(self),
             "play": PlayScene(self),
             "battle": BattleScene(self),
         }
