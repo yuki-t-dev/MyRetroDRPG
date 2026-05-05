@@ -1,6 +1,6 @@
 import pyxel
 
-from scenes import TitleScene, PlayScene, BattleScene, OpeningRollScene
+from scenes import TitleScene, PlayScene, BattleScene, OpeningRollScene, BeforeBattle, AfterBattle
 from constants import (
         GAME_WIDTH,
         GAME_HEIGHT,
@@ -29,6 +29,8 @@ class Game:
             "opening": OpeningRollScene(self),
             "play": PlayScene(self),
             "battle": BattleScene(self),
+            "before": BeforeBattle(self),
+            "after": AfterBattle(self)
         }
         #self.change_scene("battle")
         self.change_scene("title")

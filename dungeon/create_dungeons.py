@@ -256,7 +256,8 @@ class Dungeon:
         py = offset_y + self.game.player.grid_y * MINIMAP_TILE_SIZE
         pyxel.rect(px, py, MINIMAP_TILE_SIZE, MINIMAP_TILE_SIZE, pyxel.COLOR_RED)
 
-        if self.explored[self.goal_y][self.goal_x]:
+        if True:
+        #if self.explored[self.goal_y][self.goal_x]:
             gx = offset_x + self.goal_x * MINIMAP_TILE_SIZE
             gy = offset_y + self.goal_y * MINIMAP_TILE_SIZE
             pyxel.rect(gx, gy, MINIMAP_TILE_SIZE, MINIMAP_TILE_SIZE, 11)

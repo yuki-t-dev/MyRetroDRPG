@@ -29,7 +29,7 @@ class BattleSystem:
             ]
         else:
             self.enemies = [
-                Enemy("ドラゴン", 50, "dragon_tachie.png")
+                Enemy("ドラゴン", 50, 0, "dragon_tachie.png")
             ]
 
         self.message = "！戦闘開始！"
@@ -301,4 +301,4 @@ class BattleSystem:
             if self.game.current_floor < self.game.boss_floor:
                 self.game.change_scene("play")
             else:
-                self.game.change_scene("title")
+                self.game.change_scene("after")
