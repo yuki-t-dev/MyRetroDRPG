@@ -1,6 +1,6 @@
 import pyxel
 
-from .unit import Unit
+from entities.unit import Unit
 
 
 class Character(Unit):
