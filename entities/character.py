@@ -7,8 +7,6 @@ class Character(Unit):
     def __init__(self, name, hp, mp, atk, defense, file_path):
         super().__init__(name, hp, mp)
 
-        #self.max_mp = mp
-        #self.mp = mp
         self.atk = atk
         self.defense = defense
         self.file_path = file_path

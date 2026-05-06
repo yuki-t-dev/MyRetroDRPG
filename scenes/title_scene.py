@@ -88,7 +88,7 @@ class Star:
         if not self.alive:
             return
         for i, (x, y) in enumerate(self.trail):
-            col = 7 - i // 2  # 徐々に暗く
+            col = 7 - i // 2
             pyxel.pset(x, y, max(col, 1))
 
         pyxel.pset(self.x, self.y, 7)

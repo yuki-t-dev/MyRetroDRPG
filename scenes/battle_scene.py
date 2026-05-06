@@ -1,4 +1,4 @@
-import pyxel
+#import pyxel
 
 from sound import BattleBGM
 from battle_system import BattleSystem

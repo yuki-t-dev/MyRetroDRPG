@@ -1,6 +1,3 @@
-import pyxel
-
-
 class Party:
     def __init__(self):
         self.members = []
@@ -17,3 +14,7 @@ class Party:
 
     def alive_battle_party(self):
         return [m for m in self.battle_party if m.is_alive()]
+
+    def get_leader(self):
+        alive = self.alive_battle_party()
+        return alive[0] if alive else None

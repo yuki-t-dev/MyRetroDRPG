@@ -1,10 +1,6 @@
 import pyxel
 
 
-#FONTS = {
-#    "normal": pyxel.Font("./assets/umplus_j10r.bdf"),
-#}
-
 _fonts = {}
 
 def get_font(name="normal"):
@@ -23,8 +19,6 @@ def draw_text(x, y, text, col=7, style="normal", font="normal", **kwargs):
             pyxel.text(x+dx, y+dy, text, kwargs.get("outline_col", 0), f)
 
     pyxel.text(x, y, text, col, f)
-
-
 
 def decide_color_from_hp(member):
     if member.hp <= 0:

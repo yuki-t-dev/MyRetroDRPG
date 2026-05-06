@@ -20,8 +20,6 @@ class ViewStatus:
 
     def draw_allys(self):
         for i, member in enumerate(self.game.party.battle_party):
-        #for i, member in enumerate(self.game.battle_party):
-        #for i, member in enumerate(self.game.party.members):
             x = TILE_SIZE*(VIEW_WIDTH+2)
             y = 90 + i * 38
             self.show_status(x, y, member)

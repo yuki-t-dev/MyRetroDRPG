@@ -11,13 +11,11 @@ class CharSlectSystem:
         self.state = "select_charactor"
         self.selected_actor = 0
         self.selectable_members = self.game.party.members
-        #self.selectable_members = self.game.party.members[1:]
 
     def update_selector(self):
         if self.state == "select_charactor":
             self.update_select_charactor()
         if len(self.game.party.battle_party) == self.MAX_BATTLE:
-        #if len(self.game.battle_party) == self.MAX_BATTLE:
             self.game.change_scene("play")
 
     def draw_selector(self):
@@ -25,8 +23,6 @@ class CharSlectSystem:
         self.draw_all_characters()
 
     def update_select_charactor(self):
-        #members = self.game.party.members[1:]
-        #max_i = len(members)
         if pyxel.btnp(pyxel.KEY_DOWN) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN):
             self.selected_actor = (self.selected_actor + 1) % len(self.selectable_members) 
         elif pyxel.btnp(pyxel.KEY_UP) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_UP):
@@ -34,12 +30,9 @@ class CharSlectSystem:
 
         if pyxel.btnp(pyxel.KEY_A) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A):
             selected_member = self.selectable_members[self.selected_actor]
-            #if selected_member not in self.game.battle_party and \
             if selected_member not in self.game.party.battle_party and \
             len(self.game.party.battle_party) < self.MAX_BATTLE:
-            #len(self.game.battle_party) < self.MAX_BATTLE:
                 self.game.party.battle_party.append(selected_member)
-                #self.game.battle_party.append(selected_member)
 
     def draw_all_characters(self):
         pyxel.text(0, 0, "test", 7)

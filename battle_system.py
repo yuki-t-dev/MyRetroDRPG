@@ -1,7 +1,6 @@
 import pyxel
 import random
 
-from constants import TILE_SIZE
 from utility import draw_text, decide_color_from_hp
 
 from entities import Enemy
@@ -18,7 +17,6 @@ class BattleSystem:
 
         self.commands = ["たたかう", self.skill0.name, "アイテム", "にげる"]
         self.selected_commands = [None] * len(self.game.party.battle_party)
-        #self.selected_commands = [None] * len(self.game.battle_party)
 
         self.flash_timer = 0
         self.flash_color = pyxel.COLOR_WHITE
@@ -71,7 +69,6 @@ class BattleSystem:
 
     def draw_allys(self):
         for i, member in enumerate(self.game.party.battle_party):
-        #for i, member in enumerate(self.game.battle_party):
             x = 10 
             y = 10+i*45
             self.show_status(x, y, member, i)
@@ -97,10 +94,8 @@ class BattleSystem:
     def update_select_actor(self):
         if pyxel.btnp(pyxel.KEY_DOWN) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN):
             self.selected_actor = (self.selected_actor + 1) % len(self.game.party.battle_party)
-            #self.selected_actor = (self.selected_actor + 1) % len(self.game.battle_party)
         elif pyxel.btnp(pyxel.KEY_UP) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_UP):
             self.selected_actor = (self.selected_actor - 1) % len(self.game.party.battle_party)
-            #self.selected_actor = (self.selected_actor - 1) % len(self.game.battle_party)
 
         if pyxel.btnp(pyxel.KEY_A) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A):
             self.state = "select_command"
@@ -130,7 +125,7 @@ class BattleSystem:
             "target": None
         }
 
-        self.selected_actor = (self.selected_actor + 1) % len(self.game.battle_party)
+        self.selected_actor = (self.selected_actor + 1) % len(self.game.party.battle_party)
 
         if all(cmd is not None for cmd in self.selected_commands):
             self.state = "ready"
@@ -202,7 +197,6 @@ class BattleSystem:
 
                 self.message = f"{actor.name}の攻撃！\n{target.name}に{damage}のダメージ！"
             elif cmd == 1:
-                #actor.mp -= 5
                 target = random.choice(self.enemies)
                 results = actor.attack(target, self.skill0)
                 damage = results["damage"]
@@ -221,8 +215,7 @@ class BattleSystem:
 
         elif action["type"] == "enemy":
             target = random.choice(self.game.party.battle_party)
-            #target = random.choice(self.game.battle_party)
-            damage = random.randint(3, 8)
+            damage = pyxel.rndi(3, 8)
             target.take_damage(damage)
             se0 = pyxel.Sound()
             se0.mml("T200 O4 L16 V15 E G >C <B A G")
@@ -278,7 +271,6 @@ class BattleSystem:
         self.enemies = [e for e in self.enemies if e.hp > 0]
 
         self.selected_commands = [None] * len(self.game.party.battle_party)
-        #self.selected_commands = [None] * len(self.game.battle_party)
         self.selected_actor = 0
         self.state = "select_actor"
 
@@ -286,7 +278,6 @@ class BattleSystem:
         self.action_queue = []
 
         for i, member in enumerate(self.game.party.battle_party):
-        #for i, member in enumerate(self.game.battle_party):
             cmd = self.selected_commands[i]
             self.action_queue.append({
                 "type": "player",

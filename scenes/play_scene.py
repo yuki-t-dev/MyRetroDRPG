@@ -17,17 +17,20 @@ class PlayScene:
         self.next_encounter = random.randint(30, 50)
 
     def start(self):
+        game = self.game
+
         if self.initialized:
+            game.player.refresh_member()
             self.play_bgm.play()
             return
 
-        game = self.game
         game.dungeon = Dungeon(game, 64, 64, game.current_floor)
         player_x, player_y = game.dungeon.get_random_floor()
         game.player = Player(game, player_x, player_y)
         game.hud = ViewStatus(game)
         game.dungeon.spawn_goal()
         self.play_bgm.play()
+        game.player.refresh_member()
 
         self.initialized = True
 

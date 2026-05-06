@@ -1,5 +1,3 @@
-import pyxel
-
 from charactor_select_system import CharSlectSystem
 
 from entities import Character
