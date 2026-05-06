@@ -16,6 +16,7 @@ class TitleScene:
         self.star = Star()
 
     def start(self):
+        self.game.current_floor = 1
         self.title_bgm.play()
 
     def update(self):

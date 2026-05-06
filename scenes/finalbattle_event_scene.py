@@ -2,9 +2,14 @@ import pyxel
 
 from utility import draw_text
 
+from sound import EndingBGM
+
 class BeforeBattle:
     def __init__(self, game):
         self.game = game
+        self.before_battle_img = pyxel.Image(324, 240)
+        self.before_battle_img.load(0, 0, "assets/before_dragon_battle.png")
+
         self.lines = [
             "「……来たか。愚かな人間どもよ。」",
             "",
@@ -33,7 +38,8 @@ class BeforeBattle:
         self.frame_wait = 2
 
     def start(self):
-        pass
+        self.line_index = 0
+        self.char_index = 0
 
     def update(self):
         if pyxel.frame_count % self.frame_wait == 0:
@@ -51,6 +57,7 @@ class BeforeBattle:
                     self.char_index = 0
     def draw(self):
         pyxel.cls(0)
+        pyxel.blt(0, 0, self.before_battle_img, 0, 0, self.before_battle_img.width, self.before_battle_img.height)
 
         text = self.lines[self.line_index][:self.char_index]
 
@@ -62,6 +69,11 @@ class BeforeBattle:
 class AfterBattle:
     def __init__(self, game):
         self.game = game
+        self.ending_img = pyxel.Image(324, 240)
+        self.ending_img.load(0, 0, "assets/ending.png")
+
+        self.ending_bgm = EndingBGM()
+
         self.lines = [
             "――激闘の果てに。",
 
@@ -113,7 +125,9 @@ class AfterBattle:
         self.frame_wait = 2
 
     def start(self):
-        pass
+        self.line_index = 0
+        self.char_index = 0
+        self.ending_bgm.play()
 
     def update(self):
         if pyxel.frame_count % self.frame_wait == 0:
@@ -131,6 +145,7 @@ class AfterBattle:
                     self.char_index = 0
     def draw(self):
         pyxel.cls(0)
+        pyxel.blt(0, 0, self.ending_img, 0, 0, self.ending_img.width, self.ending_img.height)
 
         text = self.lines[self.line_index][:self.char_index]
 

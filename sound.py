@@ -184,3 +184,56 @@ class BattleBGM:
         pyxel.play(1, self.harmony, loop=True)
         pyxel.play(2, self.base, loop=True)
         pyxel.play(3, self.drums, loop=True)
+
+class EndingBGM:
+    MELODY = ("t120 l8 o5 v12"
+            "c e g a g e d c"
+            "e g a c6 b a g e"
+            "d e g a g e d c"
+            "r4 g a b c6 d6 c6 b"
+            "a g e d c r4"
+
+            "o5"
+            "c e g a g e d c"
+            "e g a c6 b a g e"
+            "g a b c6 d6 e6 d6 c6"
+            "b a g e d c r2"
+    )
+    HARMONY = ("t120 l8 o4 v9"
+            "c g c e g e c g"
+            "f c f a c a f c"
+            "d a d f a f d a"
+            "g d g b d b g d"
+
+            "c g c e g e c g"
+            "f c f a c a f c"
+            "g d g b d b g d"
+            "c g c e g r2"
+    )
+    BASE = ("t120 l4 o3 v8"
+            "c r g r"
+            "f r c r"
+            "d r a r"
+            "g r d r"
+
+            "c r g r"
+            "f r c r"
+            "g r d r"
+            "c r c r"
+    )
+
+    def __init__(self):
+        self.melody = pyxel.Sound()
+        self.melody.mml(self.MELODY)
+
+        self.harmony = pyxel.Sound()
+        self.harmony.mml(self.HARMONY)
+
+        self.base = pyxel.Sound()
+        self.base.mml(self.BASE)
+
+    def play(self):
+        pyxel.play(0, self.melody, loop=True)
+        pyxel.play(1, self.harmony, loop=True)
+        pyxel.play(2, self.base, loop=True)
+        pyxel.stop(3)

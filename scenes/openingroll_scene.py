@@ -6,6 +6,8 @@ from sound import OpeningBGM
 class OpeningRollScene:
     def __init__(self, game):
         self.game = game
+        self.open_roll_img = pyxel.Image(324, 240)
+        self.open_roll_img.load(0, 0, "assets/openroll.png")
         self.lines = [
             "闇に覆われた時代――",
             "人々は、地の底に広がる“古の迷宮”を恐れていた。",
@@ -62,6 +64,7 @@ class OpeningRollScene:
 
     def draw(self):
         pyxel.cls(0)
+        pyxel.blt(0, 0, self.open_roll_img, 0, 0, self.open_roll_img.width, self.open_roll_img.height)
 
         text = self.lines[self.line_index][:self.char_index]
 
@@ -70,4 +73,6 @@ class OpeningRollScene:
         if self.char_index == len(self.lines[self.line_index]):
             draw_text(200, 120, "▼", 7)
     def start(self):
+        self.line_index = 0
+        self.char_index = 0
         self.opening_bgm.play()
