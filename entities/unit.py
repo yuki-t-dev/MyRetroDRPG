@@ -1,13 +1,16 @@
 import pyxel
+import random
 
 
 class Unit:
-    def __init__(self, name, hp, mp):
+    def __init__(self, name, hp, mp, atk, defense):
         self.name = name
         self.max_hp = hp
         self.hp = hp
         self.max_mp = mp
         self.mp = mp
+        self.atk = atk
+        self.defense = defense
 
     def is_alive(self):
         return self.hp > 0
@@ -26,7 +29,10 @@ class Unit:
             damage, critical = self.physical_attack(target, skill)
 
         elif skill.type == "magical":
-            damage, critical = self.magical_attack(target, skill)
+            if self.mp < 5:
+                damage, critical = 0, False
+            else:
+                damage, critical = self.magical_attack(target, skill)
         
         return {
             "result": "hit",
@@ -53,7 +59,9 @@ class Unit:
 
     def calc_damage(self, target, skill=None):
         if skill is None:
-            return pyxel.rndi(5, 10)
+            base = self.atk - target.defense
+            damage = int(base * random.uniform(0.8, 1.2))
+            return max(0, damage)
         elif skill.type == "magical":
             return skill.power
 

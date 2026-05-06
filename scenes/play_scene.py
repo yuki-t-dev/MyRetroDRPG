@@ -14,7 +14,7 @@ class PlayScene:
         self.play_bgm = PlayBGM()
         self.initialized = False
         self.steps = 0
-        self.next_encounter = random.randint(30, 50)
+        self.next_encounter = random.randint(15, 30)
 
     def start(self):
         game = self.game
@@ -55,5 +55,5 @@ class PlayScene:
         if self.steps >= self.next_encounter:
             self.steps = 0
             #self.next_encounter = random.randint(300, 500)
-            self.next_encounter = random.randint(5, 10)
+            self.next_encounter = random.randint(15, 30)
             self.game.change_scene("battle")

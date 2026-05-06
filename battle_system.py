@@ -23,12 +23,12 @@ class BattleSystem:
 
         if self.game.current_floor < self.game.boss_floor:
             self.enemies = [
-                Enemy("スライム", 10, 0, "slime_tachie.png"),
-                Enemy("ゴブリン", 10, 0, "goburin_tachie.png"),
+                Enemy("スライム", 10, 0, 2, 2, "slime_tachie.png"),
+                Enemy("ゴブリン", 10, 0, 3, 1, "goburin_tachie.png"),
             ]
         else:
             self.enemies = [
-                Enemy("ドラゴン", 50, 0, "dragon_tachie.png")
+                Enemy("ドラゴン", 50, 0, 10, 10, "dragon_tachie.png")
             ]
 
         self.message = "！戦闘開始！"

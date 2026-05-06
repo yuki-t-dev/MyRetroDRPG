@@ -34,21 +34,21 @@ class Game:
             "before": BeforeBattle(self),
             "after": AfterBattle(self)
         }
-        #self.change_scene("title")
-        self.change_scene("select")
+        self.change_scene("title")
+        #self.change_scene("select")
         #self.change_scene("battle")
 
         pyxel.run(self.update, self.draw)
 
     def create_party(self):
-        self.party.add(Character("マリア", 80, 40, 15, 12, "heroine.png"))
-        self.party.add(Character("ビビ", 120, 20, 25, 8, "blackmaze.png"))
-        self.party.add(Character("モーグリ", 90, 50, 18, 15, "wildhero.png"))
-        self.party.add(Character("博士", 100, 50, 18, 15, "doctor.png"))
-        self.party.add(Character("ナナキ", 100, 50, 18, 15, "wilddog.png"))
-        self.party.add(Character("配管工", 90, 50, 18, 15, "plumber.png"))
-        self.party.add(Character("ワニ", 90, 50, 18, 15, "wani.png"))
-        self.party.battle_party.append(Character("マルス", 120, 30, 20, 10, "player.png"))
+        self.party.add(Character("マリア", 100, 40, 15, 12, "heroine.png"))
+        self.party.add(Character("ビビ", 100, 70, 10, 15, "blackmaze.png"))
+        self.party.add(Character("モーグリ", 100, 50, 20, 15, "wildhero.png"))
+        self.party.add(Character("博士", 90, 100, 10, 15, "doctor.png"))
+        self.party.add(Character("ナナキ", 130, 20, 20, 20, "wilddog.png"))
+        self.party.add(Character("配管工", 150, 0, 25, 20, "plumber.png"))
+        self.party.add(Character("ワニ", 140, 0, 20, 25, "wani.png"))
+        self.party.battle_party.append(Character("マルス", 200, 15, 20, 20, "player.png"))
 
     def change_scene(self, scene_name):
         self.scene_name = scene_name

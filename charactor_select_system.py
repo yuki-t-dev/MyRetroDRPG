@@ -1,6 +1,7 @@
 import pyxel
 
 from utility import draw_text
+from entities import Character
 
 
 class CharSlectSystem:
@@ -11,6 +12,8 @@ class CharSlectSystem:
         self.state = "select_charactor"
         self.selected_actor = 0
         self.selectable_members = self.game.party.members
+
+        self.selected_member = None
 
     def update_selector(self):
         if self.state == "select_charactor":
@@ -29,13 +32,14 @@ class CharSlectSystem:
             self.selected_actor = (self.selected_actor - 1) % len(self.selectable_members)
 
         if pyxel.btnp(pyxel.KEY_A) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A):
-            selected_member = self.selectable_members[self.selected_actor]
-            if selected_member not in self.game.party.battle_party and \
-            len(self.game.party.battle_party) < self.MAX_BATTLE:
-                self.game.party.battle_party.append(selected_member)
+            self.selected_member = self.selectable_members[self.selected_actor]
+            if self.selected_member not in self.game.party.battle_party and len(self.game.party.battle_party) < self.MAX_BATTLE:
+                self.game.party.battle_party.append(self.selected_member)
+        
+        if pyxel.btnp(pyxel.KEY_B) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_B):
+            self.game.party.battle_party = [Character("マルス", 200, 15, 20, 20, "player.png")]+[]
 
     def draw_all_characters(self):
-        pyxel.text(0, 0, "test", 7)
 
         for i, member in enumerate(self.selectable_members):
             row = i % 4
@@ -44,9 +48,14 @@ class CharSlectSystem:
             y = 10 + row * 45
             self.show_status(x, y, member, i)
 
+            if member in self.game.party.battle_party:
+                pyxel.rectb(x-3, y-3, 85, 35, 8)
+
             if i == self.selected_actor:
                 pyxel.rectb(x-3, y-3, 85, 35, 7)
                 pyxel.blt(140, 160, member.img2, 0, 0, -member.img2.width, member.img2.height, pyxel.COLOR_GREEN)
+
+
 
     def show_status(self, x, y, member, index):
         pyxel.blt(x, y, member.img, 0, 0, member.img.width, member.img.height, pyxel.COLOR_PURPLE)
