@@ -57,7 +57,7 @@ class OpeningRollScene:
                 self.char_index = len(self.lines[self.line_index])
             else:
                 if self.line_index == len(self.lines) - 1:
-                    self.game.change_scene("play")
+                    self.game.change_scene("select")
                 else:
                     self.line_index += 1
                     self.char_index = 0

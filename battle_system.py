@@ -17,7 +17,8 @@ class BattleSystem:
         self.skill0 = Skill("魔法",power=20, skill_type="magical")
 
         self.commands = ["たたかう", self.skill0.name, "アイテム", "にげる"]
-        self.selected_commands = [None] * len(self.game.party.members)
+        self.selected_commands = [None] * len(self.game.party.battle_party)
+        #self.selected_commands = [None] * len(self.game.battle_party)
 
         self.flash_timer = 0
         self.flash_color = pyxel.COLOR_WHITE
@@ -61,7 +62,7 @@ class BattleSystem:
         draw_text(x+20, y+10, f"HP:{member.hp}/{member.max_hp}", decide_color_from_hp(member), style="shadow")
         draw_text(x+20, y+20, f"MP:{member.mp}/{member.max_mp}", decide_color_from_hp(member), style="shadow")
 
-        cmd = self.selected_commands[index]
+        cmd = self.selected_commands[index] if index < len(self.selected_commands) else None
         if cmd is None:
             cmd_name = "..."
         else:
@@ -69,7 +70,8 @@ class BattleSystem:
         draw_text(x+100,y-2,cmd_name, pyxel.COLOR_YELLOW, style="shadow")
 
     def draw_allys(self):
-        for i, member in enumerate(self.game.party.members):
+        for i, member in enumerate(self.game.party.battle_party):
+        #for i, member in enumerate(self.game.battle_party):
             x = 10 
             y = 10+i*45
             self.show_status(x, y, member, i)
@@ -94,9 +96,11 @@ class BattleSystem:
 
     def update_select_actor(self):
         if pyxel.btnp(pyxel.KEY_DOWN) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN):
-            self.selected_actor = (self.selected_actor + 1) % len(self.game.party.members)
+            self.selected_actor = (self.selected_actor + 1) % len(self.game.party.battle_party)
+            #self.selected_actor = (self.selected_actor + 1) % len(self.game.battle_party)
         elif pyxel.btnp(pyxel.KEY_UP) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_DPAD_UP):
-            self.selected_actor = (self.selected_actor - 1) % len(self.game.party.members)
+            self.selected_actor = (self.selected_actor - 1) % len(self.game.party.battle_party)
+            #self.selected_actor = (self.selected_actor - 1) % len(self.game.battle_party)
 
         if pyxel.btnp(pyxel.KEY_A) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A):
             self.state = "select_command"
@@ -126,7 +130,7 @@ class BattleSystem:
             "target": None
         }
 
-        self.selected_actor += 1
+        self.selected_actor = (self.selected_actor + 1) % len(self.game.battle_party)
 
         if all(cmd is not None for cmd in self.selected_commands):
             self.state = "ready"
@@ -216,7 +220,8 @@ class BattleSystem:
                 self.message = f"{actor.name}は逃げ出した！"
 
         elif action["type"] == "enemy":
-            target = random.choice(self.game.party.members)
+            target = random.choice(self.game.party.battle_party)
+            #target = random.choice(self.game.battle_party)
             damage = random.randint(3, 8)
             target.take_damage(damage)
             se0 = pyxel.Sound()
@@ -272,14 +277,16 @@ class BattleSystem:
     def end_turn(self):
         self.enemies = [e for e in self.enemies if e.hp > 0]
 
-        self.selected_commands = [None] * len(self.game.party.members)
+        self.selected_commands = [None] * len(self.game.party.battle_party)
+        #self.selected_commands = [None] * len(self.game.battle_party)
         self.selected_actor = 0
         self.state = "select_actor"
 
     def build_action_queue(self):
         self.action_queue = []
 
-        for i, member in enumerate(self.game.party.members):
+        for i, member in enumerate(self.game.party.battle_party):
+        #for i, member in enumerate(self.game.battle_party):
             cmd = self.selected_commands[i]
             self.action_queue.append({
                 "type": "player",

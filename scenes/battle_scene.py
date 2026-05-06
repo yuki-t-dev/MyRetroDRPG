@@ -9,6 +9,7 @@ class BattleScene:
         self.battle_bgm = BattleBGM()
     def start(self):
         game = self.game
+
         game.battle = BattleSystem(game)
         self.battle_bgm.play()
 

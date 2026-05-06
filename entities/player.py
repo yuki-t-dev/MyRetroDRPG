@@ -64,6 +64,7 @@ class Player:
     def draw(self):
         sx = int(self.game.player.px - self.game.dungeon.cam_px)
         sy = int(self.game.player.py - self.game.dungeon.cam_py)
-        member = self.game.party.alive_members()[0]
+        member = self.game.party.alive_battle_party()[0]
+        #member = self.game.party.alive_members()[0]
         self.player_img.load(0, 0, f"assets/{member.file_path}")
         pyxel.blt(sx, sy, self.player_img, 0, 0, self.player_img.width, self.player_img.height, pyxel.COLOR_PURPLE)
